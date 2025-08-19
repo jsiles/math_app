@@ -1,10 +1,10 @@
 import { Injectable, NestMiddleware, UnauthorizedException } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'supersecret';
 
-/**
+/** 
  * Middleware to check user session for all endpoints.
  * Expects JWT token in Authorization header.
  */
