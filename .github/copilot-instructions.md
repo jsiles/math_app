@@ -67,7 +67,7 @@ Elaborar una aplicación móvil que sea un asistente virtual para resolver probl
 - Implementar un sistema de gestión de tareas y seguimiento del progreso para que los estudiantes puedan organizar
   sus estudios y los profesores puedan monitorear el avance de sus alumnos.
 
-# Estructura recomendada del proyecto
+# Recommended Project Structure
 
 ## Backend (NestJS)
 
@@ -76,24 +76,24 @@ backend/
   ├── src/
   │     ├── app.module.ts
   │     ├── main.ts
-  │     ├── problemas/
+  │     ├── problems/
   │     │     ├── algebra/
-  │     │     ├── trigonometria/
-  │     │     ├── geometria/
-  │     │     └── estadistica/
-  │     ├── usuarios/
-  │     ├── tareas/
+  │     │     ├── trigonometry/
+  │     │     ├── geometry/
+  │     │     └── statistics/
+  │     ├── users/
+  │     ├── tasks/
   │     └── ...
   ├── test/
   ├── package.json
   ├── tsconfig.json
   └── README.md
 ```
-- Modularidad por dominio (problemas, usuarios, tareas, etc.)
-- Uso de controladores, servicios y DTOs por módulo
-- Documentación de la API con Swagger
-- Configuración en archivos `.env`
-- Pruebas unitarias en la carpeta `test/`
+- Modular structure by domain (problems, users, tasks, etc.)
+- Use controllers, services, and DTOs per module
+- API documentation with Swagger
+- Configuration in `.env` files
+- Unit tests in the `test/` folder
 
 ## Frontend Web (React)
 
@@ -110,11 +110,11 @@ frontend-web/
   ├── tsconfig.json
   └── README.md
 ```
-- Componentes reutilizables y páginas por funcionalidad
-- Servicios para comunicación con el backend
-- Uso de hooks y contexto para manejo de estado
+- Reusable components and pages by feature
+- Services for backend communication
+- Use hooks and context for state management
 
-## Frontend Móvil (React Native)
+## Mobile Frontend (React Native)
 
 ```
 frontend-mobile/
@@ -129,12 +129,12 @@ frontend-mobile/
   ├── package.json
   └── README.md
 ```
-- Pantallas por flujo principal (resolver problemas, práctica, perfil, etc.)
-- Componentes reutilizables
-- Servicios para comunicación con el backend
-- Integración con notificaciones y almacenamiento local
+- Screens for main flows (solve problems, practice, profile, etc.)
+- Reusable components
+- Services for backend communication
+- Integration with notifications and local storage
 
 ## General
-- Usar nombres en ingles para entidades y rutas
-- Mantener la documentación actualizada en los README de cada módulo
-- Actualizar este archivo si se agregan nuevas convenciones o integraciones
+- Use English names for entities, folders, files, and routes
+- Keep documentation updated in each module's README
+- Update this file if new conventions or integrations are added
