@@ -138,3 +138,4 @@ frontend-mobile/
 - Use English names for entities, folders, files, and routes
 - Keep documentation updated in each module's README
 - Update this file if new conventions or integrations are added
+- All REST endpoints must explicitly set HTTP status codes using @HttpCode and handle errors (e.g., NotFoundException for missing resources).
