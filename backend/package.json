@@ -4,10 +4,11 @@
   "description": "Math problems API for Bolivian secondary education",
   "main": "dist/main.js",
   "scripts": {
-    "start": "nest start",
-    "start:dev": "nest start --watch",
-    "build": "nest build",
-    "test": "jest"
+  "start": "nest start",
+  "start:dev": "nest start --watch",
+  "start:prod": "node dist/src/main.js",
+  "build": "nest build",
+  "test": "jest"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.0",

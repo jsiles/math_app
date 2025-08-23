@@ -55,4 +55,8 @@ async function bootstrap() {
 
   await app.listen(3000);
 }
-bootstrap();
+bootstrap().catch((err) => {
+  // Loguear error en consola y terminar el proceso con código 1
+  console.error('Fatal error during bootstrap:', err);
+  process.exit(1);
+});
