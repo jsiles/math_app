@@ -11,7 +11,7 @@ import { SyncModule } from './sync/sync.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'sqlite',
-      database: 'problems.db',
+      database: '/app/problems.db',
       entities: [Problem, User],
       synchronize: true,
     }),
