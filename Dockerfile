@@ -1,11 +1,11 @@
 # Use official Node.js LTS image
-FROM node:20-alpine
+FROM node:22
 
 # Set working directory
 WORKDIR /app
 
 # Instala dependencias nativas necesarias para sqlite3
-RUN apk add --no-cache python3 make g++ 
+RUN apt-get update && apt-get install -y python3 make g++ && rm -rf /var/lib/apt/lists/*
 
 # Install dependencies
 COPY backend/package.json ./
