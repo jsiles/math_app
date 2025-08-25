@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { getToken } from '../utils/auth';
+import { API_URL } from '../utils/config';
 
-const API_URL = 'http://10.0.2.2:3000/problems/algebra'; // Cambia la URL según el tipo de pregunta
+const ALGEBRA_URL = `${API_URL}/problems/algebra`;
 
 export async function getRandomQuestion() {
   try {
     const token = await getToken();
-    const res = await axios.get(API_URL, {
+    const res = await axios.get(ALGEBRA_URL, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
