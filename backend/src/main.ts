@@ -17,6 +17,13 @@ async function bootstrap() {
 
   const app = await NestFactory.create(AppModule);
 
+  // Configurar CORS para permitir peticiones desde cualquier origen
+  app.enableCors({
+    origin: '*', // Cambia '*' por la URL de tu frontend si quieres restringir
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  });
+
   // Registrar SessionMiddleware solo en rutas privadas
   app.use(/^\/(?!users\/login$|users\/refresh$|users$).*/, new SessionMiddleware().use);
 
@@ -52,6 +59,11 @@ async function bootstrap() {
     await dataSource.getRepository(User).save(admin);
     await dataSource.destroy();
   }
+
+  app.use((req, res, next) => {
+    console.log(`[${req.method}] ${req.url}`);
+    next();
+  });
 
   await app.listen(3000);
 }
