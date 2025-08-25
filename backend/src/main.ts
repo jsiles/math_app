@@ -9,6 +9,7 @@ import { User } from './users/user.entity';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as bcrypt from 'bcryptjs';
+import { Request, Response } from 'express';
 
 async function bootstrap() {
   // Verificar si la BD existe, si no crearla y poblarla con admin
@@ -16,6 +17,11 @@ async function bootstrap() {
   const dbExists = fs.existsSync(dbPath);
 
   const app = await NestFactory.create(AppModule);
+
+  // Endpoint /health para verificar disponibilidad
+  app.getHttpAdapter().get('/health', (req: Request, res: Response) => {
+    res.status(200).json({ status: 'ok' });
+  });
 
   // Configurar CORS para permitir peticiones desde cualquier origen
   app.enableCors({
