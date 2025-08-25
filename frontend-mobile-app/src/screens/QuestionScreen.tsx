@@ -8,21 +8,22 @@ export default function QuestionScreen() {
   const [question, setQuestion] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [help, setHelp] = useState('');
+  const [mode, setMode] = useState<'online' | 'offline' | null>(null);
   const router = useRouter();
 
-  const fetchQuestion = async () => {
+  const fetchQuestion = () => {
     setLoading(true);
     setHelp('');
-    const q = await getRandomQuestion();
-    setQuestion(q);
-    setLoading(false);
+    getRandomQuestion((q: any) => {
+      setQuestion(q);
+      setLoading(false);
+      setMode(q && q.source === 'online' ? 'online' : 'offline');
+    });
   };
 
   const handleHelp = async () => {
-    // Simulación de ayuda paso a paso
     if (question) {
       setHelp('Step-by-step solution coming soon...');
-      // Aquí se puede integrar ChatGPT o IA
     }
   };
 
@@ -48,6 +49,11 @@ export default function QuestionScreen() {
     <View style={styles.container}>
       <Button title="Get Random Question" onPress={fetchQuestion} />
       <Button title="Logout" onPress={handleLogout} color="#d00" />
+      {mode && (
+        <Text style={mode === 'online' ? styles.online : styles.offline}>
+          {mode === 'online' ? '🟢 Online mode (synced)' : '🟠 Offline mode (local DB)'}
+        </Text>
+      )}
       {loading && <ActivityIndicator size="large" />}
       {question && (
         <View style={styles.questionBox}>
@@ -67,4 +73,6 @@ const styles = StyleSheet.create({
   topic: { fontWeight: 'bold', marginBottom: 8 },
   text: { fontSize: 18, marginBottom: 12 },
   help: { color: '#007AFF', marginTop: 8 },
+  online: { color: 'green', marginBottom: 8, textAlign: 'center', fontSize: 16 },
+  offline: { color: 'orange', marginBottom: 8, textAlign: 'center', fontSize: 16 },
 });

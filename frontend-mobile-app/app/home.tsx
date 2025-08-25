@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, Button, StyleSheet, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 import { getToken } from '../src/utils/auth';
+import { initLocalDB } from '../src/utils/localdb';
 
 export default function HomeScreen() {
   const router = useRouter();
   const [checking, setChecking] = useState(true);
 
   useEffect(() => {
+    initLocalDB();
     async function checkAuth() {
       const token = await getToken();
       if (token) {
