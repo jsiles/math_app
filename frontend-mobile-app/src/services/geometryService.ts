@@ -1,41 +1,55 @@
 import axios from 'axios';
 import { API_TIMEOUT, API_URL } from '../utils/config';
-import { getLocalProblems } from '../utils/localdb';
+import { executeSmartOperation } from '../utils/connectionManager';
+import { getLocalProblems, saveProblems } from '../utils/localdb';
 
 export async function getRandomGeometryQuestion(callback: (q: any) => void) {
-  try {
-    console.log(`📐 Obteniendo pregunta de geometría (timeout: ${API_TIMEOUT}ms)`);
+  console.log('📐 Obteniendo pregunta de geometría...');
+  
+  // Operación online
+  const getOnlineQuestion = async () => {
+    console.log('✅ Obteniendo pregunta de geometría ONLINE');
     const res = await axios.get(`${API_URL}/problems/geometry`, {
       timeout: API_TIMEOUT
     });
+    
     if (res.data && res.data.length > 0) {
+      console.log(`📥 Sincronizando ${res.data.length} problemas de geometría en BD local`);
+      // Sincronizar problemas en BD local (no await para no bloquear)
+      saveProblems(res.data);
+      
       const idx = Math.floor(Math.random() * res.data.length);
-      console.log('✅ Pregunta de geometría obtenida desde servidor online');
-      callback({ ...res.data[idx], source: 'online' });
-      return;
+      console.log('📤 Enviando pregunta de geometría desde servidor online');
+      return { ...res.data[idx], source: 'online' };
+    } else {
+      throw new Error('No hay preguntas de geometría disponibles en el servidor');
     }
-  } catch (e) {
-    console.log('❌ Error al obtener pregunta online, intentando offline:', e);
-    // fallback to local DB
-    try {
-      const problems = await getLocalProblems(); // Ahora devuelve datos
-      console.log(`📱 Consultando BD local - Encontrados: ${problems.length} problemas`);
-      
-      // Filtrar problemas de geometría
-      const geometryProblems = problems.filter(p => p.topic === 'geometry');
-      console.log(`📐 Problemas de geometría encontrados: ${geometryProblems.length}`);
-      
-      if (geometryProblems.length > 0) {
-        const idx = Math.floor(Math.random() * geometryProblems.length);
-        console.log('📤 Enviando pregunta de geometría desde BD local (offline)');
-        callback({ ...geometryProblems[idx], source: 'offline' });
-      } else {
-        console.log('❌ No hay preguntas de geometría en BD local');
-        callback(null);
-      }
-    } catch (error) {
-      console.log('❌ Error al consultar BD local:', error);
-      callback(null);
+  };
+
+  // Operación offline
+  const getOfflineQuestion = async () => {
+    console.log('📱 Obteniendo pregunta de geometría OFFLINE');
+    const problems = await getLocalProblems();
+    
+    // Filtrar problemas de geometría
+    const geometryProblems = problems.filter(p => p.topic === 'geometry');
+    console.log(`📐 Problemas de geometría encontrados: ${geometryProblems.length}`);
+    
+    if (geometryProblems.length === 0) {
+      throw new Error('No hay preguntas de geometría disponibles offline. Conecta a internet para descargar preguntas.');
     }
+    
+    const idx = Math.floor(Math.random() * geometryProblems.length);
+    console.log('📤 Enviando pregunta de geometría desde BD local');
+    return { ...geometryProblems[idx], source: 'offline' };
+  };
+
+  // Usar el sistema inteligente
+  try {
+    const question = await executeSmartOperation(getOnlineQuestion, getOfflineQuestion);
+    callback(question);
+  } catch (error) {
+    console.log('❌ Error obteniendo pregunta de geometría:', error);
+    callback(null);
   }
 }

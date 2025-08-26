@@ -1,4 +1,7 @@
+// External dependencies
 import axios from 'axios';
+
+// Utils imports
 import { API_TIMEOUT, API_URL } from '../utils/config';
 import { executeSmartOperation } from '../utils/connectionManager';
 import {
@@ -7,7 +10,22 @@ import {
   saveUser
 } from '../utils/localdb';
 
-export async function login(identifier: string, password: string) {
+// Types
+interface LoginResponse {
+  success: boolean;
+  token?: string;
+  user?: any;
+  source: 'online' | 'offline';
+  message?: string;
+}
+
+interface RegisterResponse {
+  success: boolean;
+  source: 'online';
+  message?: string;
+}
+
+export async function login(identifier: string, password: string): Promise<LoginResponse> {
   console.log(`🔐 Intentando login para: ${identifier}`);
   
   // Operación online
@@ -107,7 +125,7 @@ export async function login(identifier: string, password: string) {
   }
 }
 
-export async function register(identifier: string, password: string, role: string, name: string) {
+export async function register(identifier: string, password: string, role: string, name: string): Promise<RegisterResponse> {
   console.log(`📝 Intentando registro para: ${identifier}`);
   console.log('🌐 REGISTRO REQUIERE CONEXIÓN ONLINE OBLIGATORIA');
   

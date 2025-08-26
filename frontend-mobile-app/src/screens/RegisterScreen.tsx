@@ -1,7 +1,22 @@
-import { useRouter } from 'expo-router';
+// React and React Native imports
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import {
+    ActivityIndicator,
+    Alert,
+    Button,
+    StyleSheet,
+    Text,
+    TextInput,
+    View
+} from 'react-native';
+
+// Navigation imports
+import { useRouter } from 'expo-router';
+
+// Services imports
 import { register } from '../services/authService';
+
+// Utils imports
 import { connectionManager, ConnectionState } from '../utils/connectionManager';
 
 export default function RegisterScreen() {
