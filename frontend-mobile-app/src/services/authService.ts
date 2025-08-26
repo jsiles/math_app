@@ -106,14 +106,18 @@ export async function login(identifier: string, password: string): Promise<Login
         name: user.name,
         role: user.role
       },
-      source: 'offline'
+      source: 'offline' as const // Add 'as const' to make it a literal type
     };
   };
 
   // Usar el sistema inteligente para ejecutar la operación
   try {
     const result = await executeSmartOperation(onlineLogin, offlineLogin);
-    return result;
+    // Ensure 'source' is typed correctly for LoginResponse
+    return {
+      ...result,
+      source: result.source === 'online' ? 'online' : 'offline'
+    };
   } catch (error) {
     console.log('❌ Error en login:', error);
     // Si ambas operaciones fallan, intentar offline una vez más
