@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-import { login } from '../services/authService';
 import { useRouter } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { login } from '../services/authService';
 import { setToken } from '../utils/auth';
+import { debugLocalDB } from '../utils/localdb'; // ← Agregar import
 
 export default function LoginScreen() {
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
+
+  // 🔍 Debug de la BD al cargar el componente
+  useEffect(() => {
+    const runDebug = async () => {
+      await debugLocalDB();
+    };
+    runDebug();
+  }, []);
 
   const handleLogin = async () => {
     try {

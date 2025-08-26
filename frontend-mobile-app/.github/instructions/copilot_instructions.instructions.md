@@ -1,0 +1,12 @@
+---
+applyTo: '**'
+---
+- buenas practicas de desarrollo de software
+- arquitectura en capas
+- nombres en ingles de las funciones, variables y rutas
+- breve explicación del código
+- Usa React Navigation para organizar la navegación (Stack, Drawer, Bottom Tabs).
+- Separa la configuración de temas (colores, estilos globales).
+- Evita lógica compleja dentro de los componentes → muévela a hooks o servicios.
+- Nombra pantallas como LoginScreen.tsx, HomeScreen.tsx para claridad.
+- Usa un linter y formateador (ESLint + Prettier) para mantener el código ordenado.
