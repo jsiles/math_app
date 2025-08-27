@@ -4,8 +4,10 @@ export { default as RegisterScreen } from './RegisterScreen';
 
 // Main application screens
 export { default as QuestionScreen } from './QuestionScreen';
+export { default as MainCategoriesScreen } from './MainCategoriesScreen';
 
 // Subject-specific screens
+export { default as AlgebraScreen } from './AlgebraScreen';
 export { default as GeometryScreen } from './GeometryScreen';
 export { default as StatisticsScreen } from './StatisticsScreen';
 export { default as TrigonometryScreen } from './TrigonometryScreen';

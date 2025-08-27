@@ -39,8 +39,8 @@ export default function HomeScreen() {
         console.log('🏠 HOME: Token obtenido:', !!token);
         
         if (token) {
-          console.log('🏠 HOME: Redirigiendo a /question');
-          router.replace('/question');
+          console.log('🏠 HOME: Redirigiendo a /categories');
+          router.replace('/categories');
         } else {
           console.log('🏠 HOME: No hay token, mostrando home');
           setChecking(false);

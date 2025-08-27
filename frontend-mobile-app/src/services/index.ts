@@ -2,6 +2,7 @@
 export * from './authService';
 
 // Question services
+export * from './algebraService';
 export * from './geometryService';
 export * from './questionService';
 export * from './statisticsService';

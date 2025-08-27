@@ -24,6 +24,7 @@ export default function RootLayout() {
         <Stack.Screen name="login" options={{ title: 'Login', headerShown: false }} />
         <Stack.Screen name="register" options={{ title: 'Register', headerShown: false }} />
         <Stack.Screen name="question" options={{ title: 'Question', headerShown: false }} />
+        <Stack.Screen name="categories" options={{ title: 'Categories', headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
